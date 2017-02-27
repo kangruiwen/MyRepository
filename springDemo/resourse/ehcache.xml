@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+    
+    <diskStore path="E:/ehcache" /><!-- 达到内存上限后缓存文件保存位置 --> 
+    
+    <!-- 
+    	memoryStoreEvictionPolicy:
+    	maxElementsInMemory ： 在内存中缓存的element的最大数目。
+		maxElementsOnDisk ： 在磁盘上缓存的element的最大数目。 
+    	
+    	eternal: 设置元素（译注：内存中对象）是否永久驻留。如果是，将忽略超时限制且元素永不消亡。。如果为true，timeouts属性被忽略。
+    	timeToIdleSeconds:设置对象在失效前的允许闲置时间（单位：秒）就是 在一直不访问这个对象的前提下，这个对象可以在cache中的存活时间。
+    		仅当eternal=false对象不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大。  
+    	timeToLiveSeconds:用于设置对象在cache中的最大存活时间（单位：秒，就是 无论对象访问或是不访问(闲置),这个对象在cache中的存活时间。
+    		最大时间介于创建时间和失效时间之间。仅当eternal=false对象不是永久有效时使用，默认是0.，也就是对象存活时间无穷大。
+    	overflowToDisk:设置当内存中缓存达到maxInMemory限制时元素是否可写到磁盘上。
+    	diskPersistent:在VM重启的时候是否持久化磁盘缓存，默认是false。 持久化可在Element的diskPersistent配置项中配置，
+    		如果配置为“false”或是“omitted”在CacheManager shutdown或是startup后，用来缓存Element的文件将被清除掉。
+    		如果设置为“true”，data和index文件会被保存下来，对于新创建的CacheManager Element也是可用的。
+    	memoryStoreEvictionPolicy：缓存废弃策略，LRU表示最少使用的优先清除，此值对应之前3种策略,当达到maxElementsInMemory限制时
+    		Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。  
+        	clearOnFlush：内存数量最大时是否清除。  
+      -->
+    
+    <defaultCache
+ 		maxElementsInMemory="1" 
+ 		memoryStoreEvictionPolicy="LRU" 
+        eternal="false"    
+        timeToIdleSeconds="120" 
+        timeToLiveSeconds="120" 
+        overflowToDisk="false" 
+        diskPersistent="false" />
+    <!-- 测试 -->
+    <cache   
+       name="cache_test"  
+       memoryStoreEvictionPolicy="LRU"   
+       maxElementsInMemory="2"   
+       eternal="false"  
+       timeToIdleSeconds="3"  
+       timeToLiveSeconds="3"   
+       overflowToDisk="true" />  
+</ehcache>
